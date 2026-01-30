@@ -6,3 +6,4 @@
 6) <Does a dispense need to update or notify external systems such as inventory or billing?, Constraint>
 7) <Are there minimum quantities per dispense or rules for partial fills?, Constraint>
 8) <Do we need to log all events permanently for audits and what's the retention period?, Invariant>
+9) <Is max dosage hardcoded?, Functional>
