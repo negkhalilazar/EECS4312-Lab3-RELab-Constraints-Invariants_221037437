@@ -8,7 +8,7 @@ class DispenseEvent:
     
 
     # TODO Task 3: Encode and enforce input constraints (e.g., valid dose, quantity, identifiers)
-    def __init__(self, patient_id, medication, dose_mg, quantity):
+    def __init__(self, patient_id, medication, dose_mg, quantity, event_date):
         """
         Initialize a new DispenseEvent.
 
@@ -27,17 +27,22 @@ class DispenseEvent:
             raise ValueError("medication must be a non-empty string")
         if dose_mg <= 0:
             raise ValueError("dose must be positive")
-        if dose_mg > MAX_DOSES.get(medication, float('inf')): 
-            raise ValueError("dose exceeds maximum allowed")
         if not isinstance(quantity, int):
             raise ValueError("quantity must be integer")
         if quantity <= 0:
             raise ValueError("quantity must be positive")
+        if event_date is None:
+            event_date = date.today()
+        elif not isinstance(event_date, date):
+            raise ValueError("even_date must be a date object")
+            "after checking the above"
+        if dose_mg * quantity > MAX_DOSES.get(medication, float('inf')): 
+            raise ValueError("dose exceeds maximum allowed")
+        self.date = event_date
         self.patient_id = patient_id
         self.medication = medication
         self.dose_mg = dose_mg
         self.quantity = quantity
-        self.date = date.today()
     # TODO Task 4: Define and check system invariants 
     @staticmethod
     def invariant_holds(existing_events, new_event):
